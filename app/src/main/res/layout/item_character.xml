@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="character"
+            type="com.example.rickandmorty.data.entities.Character" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="14dp"
+        app:cardCornerRadius="12dp"
+        app:cardUseCompatPadding="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:padding="10dp">
+
+            <ImageView
+                android:id="@+id/image"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:contentDescription="@{character.name}"
+                android:elevation="14dp"
+                android:transitionName="@{@string/transition_character_image(character.id)}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:url="@{character.image}"
+                tools:srcCompat="@tools:sample/avatars" />
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{character.name}"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:transitionName="@{@string/transition_character_name(character.id)}"
+                app:layout_constraintEnd_toEndOf="@+id/image"
+                app:layout_constraintStart_toStartOf="@+id/image"
+                app:layout_constraintTop_toBottomOf="@+id/image"
+                tools:text="@tools:sample/full_names" />
+
+            <TextView
+                android:id="@+id/species_and_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{character.species}"
+                app:layout_constraintEnd_toEndOf="@+id/name"
+                app:layout_constraintStart_toStartOf="@+id/name"
+                app:layout_constraintTop_toBottomOf="@+id/name"
+                tools:text="Human" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+</layout>
