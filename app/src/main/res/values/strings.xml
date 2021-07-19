@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">RickAndMortyAPI</string>
+    <string name="app_name">SIECOMP - RickAndMorty</string>
 
     <string name="character_status">Status: %1$s</string>
     <string name="character_species">Specie: %1$s</string>

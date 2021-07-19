@@ -15,7 +15,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.example.rickandmorty"
+        applicationId "br.com.samuelnunes.rickandmorty"
         minSdkVersion 23
         targetSdkVersion 30
         versionCode 1

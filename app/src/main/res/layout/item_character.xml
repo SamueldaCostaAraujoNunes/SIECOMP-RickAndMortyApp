@@ -7,7 +7,7 @@
 
         <variable
             name="character"
-            type="com.example.rickandmorty.data.entities.Character" />
+            type="br.com.samuelnunes.rickandmorty.data.entities.Character" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
