@@ -6,8 +6,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:nestedScrollingEnabled="false"
-    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
     app:spanCount="2"
+    tools:itemCount="15"
     tools:background="@color/colorBackground"
     tools:context=".ui.characters.CharactersFragment"
     tools:listitem="@layout/item_character" />

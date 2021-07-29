@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import androidx.core.view.forEach
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
@@ -15,6 +16,7 @@ import br.com.samuelnunes.rickandmorty.R
 import br.com.samuelnunes.rickandmorty.data.entities.Character
 import br.com.samuelnunes.rickandmorty.databinding.CharactersFragmentBinding
 import br.com.samuelnunes.rickandmorty.databinding.ItemCharacterBinding
+import br.com.samuelnunes.rickandmorty.ui.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -23,6 +25,7 @@ class CharactersFragment : Fragment(), CharacterItemListener {
 
     private lateinit var binding: CharactersFragmentBinding
     private val viewModel: CharactersViewModel by viewModels()
+    private val mainViewModel: MainViewModel by activityViewModels()
     private lateinit var adapter: CharactersAdapter
 
     override fun onCreateView(
@@ -42,6 +45,11 @@ class CharactersFragment : Fragment(), CharacterItemListener {
         return binding.root
     }
 
+    override fun onResume() {
+        super.onResume()
+        mainViewModel.showSearchView()
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
@@ -54,7 +62,14 @@ class CharactersFragment : Fragment(), CharacterItemListener {
     }
 
     private fun setupObservers() {
-        viewModel.characters.observe(viewLifecycleOwner) {
+        submitList()
+        mainViewModel.query.observe(viewLifecycleOwner, { query ->
+            submitList(query ?: "")
+        })
+    }
+
+    private fun submitList(query: String = "") {
+        viewModel.characters(query).observe(viewLifecycleOwner) {
             adapter.submitData(lifecycle, it)
         }
     }

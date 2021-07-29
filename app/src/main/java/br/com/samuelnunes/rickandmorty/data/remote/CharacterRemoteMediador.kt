@@ -18,6 +18,7 @@ import javax.inject.Inject
 
 @OptIn(ExperimentalPagingApi::class)
 class CharacterRemoteMediador @Inject constructor(
+    private val query: String,
     private val dao: CharacterDao,
     private val service: CharacterService
 ) : RemoteMediator<Int, Character>() {
@@ -28,24 +29,22 @@ class CharacterRemoteMediador @Inject constructor(
     ): MediatorResult {
         val pageSize = state.config.pageSize
         val page = when (loadType) {
-            LoadType.REFRESH -> {
-                val i = getRemoteKeyClosestToCurrentPosition(state) ?: 1
-                indexToPage(i, pageSize)
-            }
-            LoadType.PREPEND -> {
-                val i = getRemoteKeyForFirstItem(state) ?: 1
-                val cap = indexToPage(i, pageSize)
-                if (cap == 34) return MediatorResult.Success(endOfPaginationReached = true)
-                indexToPage(i, pageSize)
-            }
+            LoadType.REFRESH -> null
+            LoadType.PREPEND -> return MediatorResult.Success(endOfPaginationReached = true)
             LoadType.APPEND -> {
-                val i = getRemoteKeyForLastItem(state) ?: 1
-                indexToPage(i, pageSize)
+                val lastItem = state.lastItemOrNull()
+                    ?: return MediatorResult.Success(
+                        endOfPaginationReached = true
+                    )
+                (lastItem.id / pageSize) + 1
             }
         }
 
         return try {
-            val response = service.getAllCharacters(page)
+            val response = service.getAllCharacters(
+                page = page,
+                name = query
+            )
             dao.insertAll(response.results)
             MediatorResult.Success(
                 endOfPaginationReached = response.info.next == null
@@ -59,16 +58,4 @@ class CharacterRemoteMediador @Inject constructor(
         }
     }
 
-    private fun getRemoteKeyClosestToCurrentPosition(state: PagingState<Int, Character>): Int? =
-        state.anchorPosition?.let { state.closestItemToPosition(it) }?.id
-
-    private fun getRemoteKeyForFirstItem(state: PagingState<Int, Character>): Int? =
-        state.pages.firstOrNull { it.data.isNotEmpty() }?.data?.firstOrNull()?.id
-
-    private fun getRemoteKeyForLastItem(state: PagingState<Int, Character>): Int? =
-        state.pages.lastOrNull { it.data.isNotEmpty() }?.data?.lastOrNull()?.id
-
-    private fun indexToPage(position: Int, pageSize: Int = 20): Int {
-        return (position / pageSize) + 1
-    }
 }

@@ -14,17 +14,18 @@ import javax.inject.Inject
 @ExperimentalPagingApi
 class CharacterRepository @Inject constructor(
     private val service: CharacterService,
-    private val database: CharacterDao
+    private val dao: CharacterDao
 ) {
-    fun getCharacters(): Flow<PagingData<Character>> = Pager(
+
+    fun getCharacters(query: String): Flow<PagingData<Character>> = Pager(
         config = PagingConfig(
             pageSize = 20,
             enablePlaceholders = false
         ),
-        pagingSourceFactory = { database.getPagingSource() },
-        remoteMediator = CharacterRemoteMediador(database, service)
+        pagingSourceFactory = { dao.getPagingSource("%$query%") },
+        remoteMediator = CharacterRemoteMediador(query, dao, service)
     ).flow
 
-    suspend fun getCharacter(id: Int) = database.getCharacter(id)
+    suspend fun getCharacter(id: Int) = dao.getCharacter(id)
 
 }
