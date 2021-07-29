@@ -4,18 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.ViewTreeObserver
-import androidx.core.view.forEach
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.paging.ExperimentalPagingApi
-import br.com.samuelnunes.rickandmorty.R
 import br.com.samuelnunes.rickandmorty.data.entities.Character
 import br.com.samuelnunes.rickandmorty.databinding.CharactersFragmentBinding
-import br.com.samuelnunes.rickandmorty.databinding.ItemCharacterBinding
 import br.com.samuelnunes.rickandmorty.ui.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -32,16 +27,7 @@ class CharactersFragment : Fragment(), CharacterItemListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        postponeEnterTransition()
         binding = CharactersFragmentBinding.inflate(inflater, container, false)
-        val drawListener = object : ViewTreeObserver.OnPreDrawListener {
-            override fun onPreDraw(): Boolean {
-                startPostponedEnterTransition()
-                binding.charactersRv.viewTreeObserver.removeOnPreDrawListener(this)
-                return true
-            }
-        }
-        binding.charactersRv.viewTreeObserver.addOnPreDrawListener(drawListener)
         return binding.root
     }
 
@@ -74,24 +60,10 @@ class CharactersFragment : Fragment(), CharacterItemListener {
         }
     }
 
-    override fun onClickedCharacter(character: Character, viewBinding: ItemCharacterBinding) {
-        val imageView = findViewForTransition(binding.charactersRv, R.id.image, character.id)
-        val textView = findViewForTransition(binding.charactersRv, R.id.name, character.id)
+    override fun onClickedCharacter(character: Character) {
         val direction =
             CharactersFragmentDirections.actionCharactersFragmentToCharacterDetailFragment(character.id)
-        val extras = FragmentNavigatorExtras(
-            imageView to imageView.transitionName,
-            textView to textView.transitionName
-        )
-        findNavController().navigate(direction, extras)
+        findNavController().navigate(direction)
     }
 
-    private fun findViewForTransition(group: ViewGroup, idView: Int, id: Int): View {
-        group.forEach {
-            if (it.getTag(R.id.character_id_tag) == id) {
-                return it.findViewById(idView)
-            }
-        }
-        return group
-    }
 }

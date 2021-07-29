@@ -3,9 +3,15 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/samue/Projetos/SIECOMP-RickAndMortyApp/app/src/main/res/layout/activity_main.xml" value="0.5" />
+        <entry key="..\:/samue/Projetos/SIECOMP-RickAndMortyApp/app/src/main/res/drawable/ic_search.xml" value="0.39114583333333336" />
+        <entry key="..\:/samue/Projetos/SIECOMP-RickAndMortyApp/app/src/main/res/layout-land/character_detail_fragment.xml" value="0.4390625" />
+        <entry key="..\:/samue/Projetos/SIECOMP-RickAndMortyApp/app/src/main/res/layout-land/characters_fragment.xml" value="0.25" />
+        <entry key="..\:/samue/Projetos/SIECOMP-RickAndMortyApp/app/src/main/res/layout-sw600dp/item_character.xml" value="0.28125" />
+        <entry key="..\:/samue/Projetos/SIECOMP-RickAndMortyApp/app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="..\:/samue/Projetos/SIECOMP-RickAndMortyApp/app/src/main/res/layout/character_detail_fragment.xml" value="0.375" />
         <entry key="..\:/samue/Projetos/SIECOMP-RickAndMortyApp/app/src/main/res/layout/characters_fragment.xml" value="0.375" />
         <entry key="..\:/samue/Projetos/SIECOMP-RickAndMortyApp/app/src/main/res/layout/item_character.xml" value="0.375" />
+        <entry key="..\:/samue/Projetos/SIECOMP-RickAndMortyApp/app/src/main/res/menu/menu_main_activity.xml" value="0.1" />
       </map>
     </option>
   </component>

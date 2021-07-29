@@ -17,7 +17,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#cccccc">
+        android:background="@color/colorBackground">
 
         <View
             android:id="@+id/viewColor"
@@ -42,7 +42,6 @@
                 android:layout_height="200dp"
                 android:contentDescription="@{character.name}"
                 android:elevation="20dp"
-                android:transitionName="@{@string/transition_character_image(id_transition)}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -55,7 +54,6 @@
                 android:layout_height="wrap_content"
                 android:paddingTop="23dp"
                 android:textSize="27sp"
-                android:transitionName="@{@string/transition_character_name(id_transition)}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/image"

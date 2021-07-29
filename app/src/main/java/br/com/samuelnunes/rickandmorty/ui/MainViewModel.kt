@@ -1,6 +1,7 @@
 package br.com.samuelnunes.rickandmorty.ui
 
 import androidx.appcompat.widget.SearchView
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
@@ -29,7 +30,7 @@ class MainViewModel :
 
 
     private val _searchView = MutableLiveData(true)
-    val searchViewVisibility = _searchView
+    val searchViewVisibility: LiveData<Boolean> = _searchView
     fun showSearchView() {
         _searchView.value = true
     }

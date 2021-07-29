@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="character"
             type="br.com.samuelnunes.rickandmorty.data.entities.Character" />
@@ -14,9 +13,7 @@
         android:id="@+id/card_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:elevation="14dp"
-        app:cardCornerRadius="@dimen/corner_radius"
-        app:cardUseCompatPadding="true">
+        style="@style/MyCardView">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -28,7 +25,6 @@
                 android:layout_height="100dp"
                 android:contentDescription="@{character.name}"
                 android:elevation="14dp"
-                android:transitionName="@{@string/transition_character_image(character.id)}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -43,7 +39,6 @@
                 android:text="@{character.name}"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:transitionName="@{@string/transition_character_name(character.id)}"
                 app:layout_constraintStart_toEndOf="@+id/image"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="@tools:sample/full_names" />
